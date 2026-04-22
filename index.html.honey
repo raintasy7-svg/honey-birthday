@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Honey 💙</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #dceefb, #eaf6ff, #f0f4ff);
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== PASSWORD SCREEN ===== */
+#lockScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #bdd8f1, #dceefb);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#lockScreen h2 {
+    color: #2b5d8a;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+#lockScreen p {
+    color: #5a8bb5;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#lockScreen input {
+    padding: 14px 20px;
+    border: 2px solid #5da9e9;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    width: 260px;
+}
+
+#lockScreen input:focus {
+    border-color: #3d8edb;
+    box-shadow: 0 0 15px rgba(93, 169, 233, 0.3);
+}
+
+#lockScreen button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: #5da9e9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#lockScreen button:hover {
+    background: #3d8edb;
+}
+
+#wrongPass {
+    color: #e74c3c;
+    margin-top: 10px;
+    display: none;
+    font-size: 14px;
+}
+
+/* ===== MAIN CONTENT ===== */
+#mainContent {
+    display: none;
+    padding: 20px;
+}
+
+h1 {
+    margin-top: 30px;
+    color: #2b5d8a;
+    font-size: 36px;
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.subtitle {
+    color: #5a8bb5;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background-color: #5da9e9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #3d8edb;
+    transform: scale(1.05);
+}
+
+.section {
+    margin: 50px auto;
+    max-width: 650px;
+}
+
+/* ===== CAKE ===== */
+.cake-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cake {
+    font-size: 100px;
+    cursor: pointer;
+    transition: 0.3s;
+    animation: float 3s ease-in-out infinite;
+}
+
+.cake:hover {
+    transform: scale(1.1);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.candles {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.flame {
+    font-size: 22px;
+    animation: flicker 0.5s infinite alternate;
+}
+
+@keyframes flicker {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.6; transform: scale(0.8); }
+}
+
+.blown {
+    opacity: 0.3;
+    animation: none !important;
+}
+
+/* ===== LETTER ===== */
+.envelope {
+    font-size: 60px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.envelope:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+#letter {
+    display: none;
+    max-width: 550px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    color: #444;
+    text-align: left;
+    line-height: 1.8;
+    animation: slideUp 0.8s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#letter p {
+    margin-bottom: 12px;
+}
+
+/* ===== GIFT ===== */
+#giftBox {
+    font-size: 80px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+#giftBox:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#giftBox.opened {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+#giftMessage {
+    display: none;
+    font-size: 18px;
+    margin-top: 20px;
+    color: #2b5d8a;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    animation: slideUp 0.8s ease;
+}
+
+/* ===== GALLERY ===== */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.gallery img:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* ===== MUSIC BUTTON ===== */
+#musicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #5da9e9;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(93,169,233,0.4);
+    z-index: 100;
+    padding: 0;
+}
+
+/* ===== CONFETTI ===== */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    z-index: 9998;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(105vh) rotate(720deg);
+    }
+}
+
+/* ===== HEARTS FLOATING ===== */
+.floating-heart {
+    position: fixed;
+    font-size: 20px;
+    bottom: -30px;
+    animation: floatUp 6s linear infinite;
+    z-index: 50;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    margin-top: 60px;
+    padding: 30px;
+    color: #5a8bb5;
+    font-size: 14px;
+}
+
+.footer span {
+    color: #e74c3c;
+}
+
+/* ===== IMAGE POPUP ===== */
+#imagePopup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+#imagePopup img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 15px;
+}
+
+#imagePopup .close {
+    position: absolute;
+    top: 20px; right: 30px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PASSWORD SCREEN ===== -->
+<div id="lockScreen">
+    <div style="font-size:60px; margin-bottom:20px;">💙🔒</div>
+    <h2>This is for someone special</h2>
+    <p>Enter the password to continue ✨</p>
+    <input type="text" id="passwordInput" placeholder="hint: what raina calls you 💙" 
+           onkeypress="if(event.key==='Enter') checkPassword()">
+    <br>
+    <button onclick="checkPassword()">Enter 💙</button>
+    <p id="wrongPass">Wrong password! Try again 💙</p>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="mainContent">
+
+    <h1>Happy Birthday Honey 💙</h1>
+    <p class="subtitle">27th April • A little something from Raina to you ✨</p>
+
+    <!-- CAKE SECTION -->
+    <div class="section">
+        <h2 style="color:#2b5d8a; margin-bottom:15px;">Make a Wish 🕯️</h2>
+        <div class="cake-container">
+            <div class="candles" id="candles">
+                <span class="flame">🔥</span>
+                <span class="flame">🔥</span>
+                <span class="flame">🔥</span>
+                <span class="flame">🔥</span>
+                <span class="flame">🔥</span>
+            </div>
+            <div class="cake" onclick="blowCandles()">🎂</div>
+        </div>
+        <p style="color:#5a8bb5; margin-top:10px;" id="cakeText">
+            Click the cake to blow the candles ✨
+        </p>
+    </div>
+
+    <!-- LETTER SECTION -->
+    <div class="section">
+        <h2 style="color:#2b5d8a; margin-bottom:15px;">A Letter For You 💌</h2>
+        <div class="envelope" onclick="openLetter()">✉️</div>
+        <p style="color:#5a8bb5; margin-top:5px;">Click to open</p>
+        <div id="letter">
+            <p><b>Dear Honey,</b></p>
+            <p>
+                Happy Birthday 🤍
+            </p>
+            <p>
+                It's crazy how many years it's been since school. Sometimes I randomly 
+                think about those days — the corridors, our stupid jokes, the way we 
+                used to laugh at literally nothing. Those were honestly some of the 
+                best days of my life… and it's because you were there.
+            </p>
+            <p>
+                Even now, with you in Kemerovo and me in Kursk, it still feels like 
+                you're such a big part of my everyday life. Distance is annoying, but 
+                it doesn't change what you mean to me.
+            </p>
+            <p>
+                I miss you. I really do.
+            </p>
+            <p>
+                And just so you remember — I'm still your No. 1.<br>
+                Everyone else is respectfully No. 2. 😌 (no arguments allowed)
+            </p>
+            <p>
+                I hope this year makes you happy, calm, loved, and proud of yourself. 
+                You deserve all the good things, Honey.
+            </p>
+            <p>
+                Thank you for being you.<br>
+                Always.
+            </p>
+            <p><b>— Raina 💙</b></p>
+        </div>
+    </div>
+
+    <!-- GIFT SECTION -->
+    <div class="section">
+        <h2 style="color:#2b5d8a; margin-bottom:15px;">A Little Gift 🎁</h2>
+        <div id="giftBox" onclick="openGift()">🎁</div>
+        <p style="color:#5a8bb5; margin-top:5px;">Click to unwrap</p>
+        <div id="giftMessage">
+            🎉 Surprise!!!<br><br>
+            Your gift is… a lifetime membership of me being your No.1 😌💙<br><br>
+            No refunds. No exchanges. You're stuck with me forever. 🤷‍♀️💙
+        </div>
+    </div>
+
+    <!-- PHOTO GALLERY -->
+    <div class="section">
+        <h2 style="color:#2b5d8a; margin-bottom:15px;">Our Memories 📸</h2>
+        <p style="color:#5a8bb5; margin-bottom:15px;">Some moments I never want to forget</p>
+        <div class="gallery">
+            <!-- Replace with your photos -->
+            <img src="photo1.jpg" onclick="showImage(this.src)" alt="memory">
+            <img src="photo2.jpg" onclick="showImage(this.src)" alt="memory">
+            <img src="photo3.jpg" onclick="showImage(this.src)" alt="memory">
+            <img src="photo4.jpg" onclick="showImage(this.src)" alt="memory">
+            <img src="photo5.jpg" onclick="showImage(this.src)" alt="memory">
+            <img src="photo6.jpg" onclick="showImage(this.src)" alt="memory">
+        </div>
+    </div>
+
+    <div class="footer">
+        Made with <span>❤️</span> by Raina for Honey<br>
+        Happy Birthday Abhilasha 💙 27.04
+    </div>
+
+</div>
+
+<!-- IMAGE POPUP -->
+<div id="imagePopup" onclick="closeImage()">
+    <span class="close">&times;</span>
+    <img id="popupImg" src="">
+</div>
+
+<!-- MUSIC BUTTON -->
+<button id="musicBtn" onclick="toggleMusic()" style="display:none;">🎵</button>
+
+<!-- BACKGROUND MUSIC -->
+<!-- 
+    Download any free happy birthday music mp3
+    Name it: music.mp3
+    Put it in the same folder
+-->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ===== PASSWORD =====
+function checkPassword() {
+    let pass = document.getElementById("passwordInput").value.toLowerCase().trim();
+    if (pass === "honey") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+        document.getElementById("musicBtn").style.display = "block";
+        startHearts();
+        // Auto play music
+        let music = document.getElementById("bgMusic");
+        music.volume = 0.3;
+        music.play().catch(() => {});
+    } else {
+        document.getElementById("wrongPass").style.display = "block";
+        document.getElementById("passwordInput").value = "";
+    }
+}
+
+// ===== BLOW CANDLES =====
+let candlesBlown = false;
+function blowCandles() {
+    if (candlesBlown) return;
+    candlesBlown = true;
+    let flames = document.querySelectorAll(".flame");
+    flames.forEach((f, i) => {
+        setTimeout(() => {
+            f.classList.add("blown");
+            f.textContent = "💨";
+        }, i * 300);
+    });
+    setTimeout(() => {
+        document.getElementById("cakeText").textContent = 
+            "Yayy! 🥳 Now make a wish Honey ✨";
+        startConfetti();
+    }, 1800);
+}
+
+// ===== OPEN LETTER =====
+function openLetter() {
+    let letter = document.getElementById("letter");
+    if (letter.style.display === "block") {
+        letter.style.display = "none";
+    } else {
+        letter.style.display = "block";
+    }
+}
+
+// ===== OPEN GIFT =====
+let giftOpened = false;
+function openGift() {
+    if (giftOpened) return;
+    giftOpened = true;
+    let box = document.getElementById("giftBox");
+    box.textContent = "🎊";
+    box.classList.add("opened");
+    document.getElementById("giftMessage").style.display = "block";
+    startConfetti();
+}
+
+// ===== CONFETTI =====
+function startConfetti() {
+    let colors = ["#5da9e9", "#a8d8ea", "#f7c5c5", "#ffd3b6", "#dcedc1", "#c5b3e6"];
+    for (let i = 0; i < 60; i++) {
+        let confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+        confetti.style.width = Math.random() * 8 + 6 + "px";
+        confetti.style.height = Math.random() * 8 + 6 + "px";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+    }
+}
+
+// ===== FLOATING HEARTS =====
+function startHearts() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.textContent = ["💙", "🤍", "🩵", "💎"][Math.floor(Math.random() * 4)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 4 + 4 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 800);
+}
+
+// ===== MUSIC TOGGLE =====
+let musicPlaying = true;
+function toggleMusic() {
+    let music = document.getElementById("bgMusic");
+    if (musicPlaying) {
+        music.pause();
+        document.getElementById("musicBtn").textContent = "🔇";
+    } else {
+        music.play();
+        document.getElementById("musicBtn").textContent = "🎵";
+    }
+    musicPlaying = !musicPlaying;
+}
+
+// ===== IMAGE POPUP =====
+function showImage(src) {
+    document.getElementById("popupImg").src = src;
+    document.getElementById("imagePopup").style.display = "flex";
+}
+
+function closeImage() {
+    document.getElementById("imagePopup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
